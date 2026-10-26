@@ -9,6 +9,14 @@
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
+# update rust package from the newer immortalwrt/packages master (openwrt-24.10 ships rust 1.94.0 which fails to build)
+rm -rf /tmp/immortalwrt-packages
+git clone --depth=1 --filter=blob:none --sparse -b master https://github.com/immortalwrt/packages.git /tmp/immortalwrt-packages
+git -C /tmp/immortalwrt-packages sparse-checkout set lang/rust
+rm -rf feeds/packages/lang/rust
+cp -r /tmp/immortalwrt-packages/lang/rust feeds/packages/lang/rust
+rm -rf /tmp/immortalwrt-packages
+
 # add kmod-xdp-sockets-diag
 echo '
 
